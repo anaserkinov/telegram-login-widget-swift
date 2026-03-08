@@ -11,7 +11,7 @@ let package = Package(
         .library(
             name: "TelegramLoginWidget",
             targets: ["TelegramLoginWidget"]
-        ),
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
