@@ -5,7 +5,6 @@
 //  Created by Anas Erkinjonov on 04/03/26.
 //
 
-
 import SwiftUI
 import TelegramLoginData
 
@@ -50,7 +49,7 @@ struct MainScreen: View {
 
             Spacer()
                 .frame(height: 16)
-            
+
             Button(action: onLogout) {
                 Text("Log out")
                     .frame(maxWidth: .infinity)

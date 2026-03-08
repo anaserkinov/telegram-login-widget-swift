@@ -11,8 +11,8 @@ import TelegramLoginData
 // MARK: - TelegramDefaults
 
 public enum TelegramDefaults {
-    public static let primaryColor = Color(red: 84.0/255, green: 169.0/255, blue: 235.0/255)  // FF54A9EB
-    public static let disabledPrimaryColor = Color(red: 171.0/255, green: 218.0/255, blue: 1) // FFABDAFF
+    public static let primaryColor = Color(red: 84.0 / 255, green: 169.0 / 255, blue: 235.0 / 255)  // FF54A9EB
+    public static let disabledPrimaryColor = Color(red: 171.0 / 255, green: 218.0 / 255, blue: 1)  // FFABDAFF
     public static let iconSize: CGFloat = 24
     public static let iconEndPadding: CGFloat = 12
     public static let userPhotoSize: CGFloat = 24
@@ -186,7 +186,7 @@ public struct TelegramButtontUserPhotoBox<Progress: View, Photo: View>: View {
 
             if !state.isLoading {
                 userPhoto(state)
-                
+
                 if preservesSpace && state.buttonContent.userPhoto == nil {
                     Spacer()
                         .frame(width: TelegramDefaults.userPhotoSize)
@@ -244,13 +244,16 @@ public struct TelegramLoginButton<Content: View>: View {
             content(state, contentColor)
         }
         .foregroundStyle(contentColor)
-        .onChange(of: showBottomSheet, initial: false, { oldValue, newValue in
-            if newValue {
-                isUserDismiss = true
-            } else if isUserDismiss {
-                onResult(TelegramLoginResultCancelled())
+        .onChange(
+            of: showBottomSheet, initial: false,
+            { oldValue, newValue in
+                if newValue {
+                    isUserDismiss = true
+                } else if isUserDismiss {
+                    onResult(TelegramLoginResultCancelled())
+                }
             }
-        })
+        )
         .sheet(isPresented: $showBottomSheet) {
             TelegramLoginBottomSheet(config: state.config) { result in
                 isUserDismiss = false

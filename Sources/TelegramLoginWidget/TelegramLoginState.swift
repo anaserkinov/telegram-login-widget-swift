@@ -5,26 +5,23 @@
 //  Created by Anas Erkinjonov on 03/03/26.
 //
 
-
-import Foundation
 import Combine
+import Foundation
 import TelegramLoginData
 import UIKit
-
 
 // MARK: - TelegramLoginState
 
 @MainActor
 @Observable
 public final class TelegramLoginState {
-    
+
     struct ButtonContent {
         var text: String = ""
         var userFirstName: String? = nil
         var userPhoto: UIImage? = nil
     }
-    
-    
+
     public let config: TelegramLoginConfig
 
     private(set) var isLoading: Bool = true
@@ -32,7 +29,7 @@ public final class TelegramLoginState {
 
     private var lastUsedCookies: String? = nil
     private var loadTask: Task<Void, any Error>? = nil
-    
+
     public init(config: TelegramLoginConfig) {
         self.config = config
         load()
@@ -77,8 +74,7 @@ public final class TelegramLoginState {
     }
 }
 
-
-public extension TelegramLoginState {
+extension TelegramLoginState {
     public convenience init(
         botId: Int64,
         botUsername: String,
@@ -86,13 +82,13 @@ public extension TelegramLoginState {
         requestAccess: Bool = true,
         languageCode: String = "en"
     ) {
-        self.init(config: TelegramLoginConfig(
-            botId: botId,
-            botUsername: botUsername,
-            websiteUrl: websiteUrl,
-            requestAccess: requestAccess,
-            languageCode: languageCode
-        ))
+        self.init(
+            config: TelegramLoginConfig(
+                botId: botId,
+                botUsername: botUsername,
+                websiteUrl: websiteUrl,
+                requestAccess: requestAccess,
+                languageCode: languageCode
+            ))
     }
 }
-

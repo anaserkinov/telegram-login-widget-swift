@@ -7,45 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A88769042F5E3015003D3AAB /* TelegramLoginWidget in Frameworks */ = {isa = PBXBuildFile; productRef = A88769032F5E3015003D3AAB /* TelegramLoginWidget */; };
+		A89BA10A2F5E3E71004ED968 /* TelegramLoginWidget in Frameworks */ = {isa = PBXBuildFile; productRef = A89BA1092F5E3E71004ED968 /* TelegramLoginWidget */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A88AA3672F5E26AE008C6A03 /* TelegramLoginWidgetSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TelegramLoginWidgetSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A89BA0EA2F5E3E2A004ED968 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A88AA3692F5E26AE008C6A03 /* TelegramLoginWidgetSample */ = {
+		A89BA0EC2F5E3E2A004ED968 /* Sample */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TelegramLoginWidgetSample;
+			path = Sample;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A88AA3642F5E26AE008C6A03 /* Frameworks */ = {
+		A89BA0E72F5E3E2A004ED968 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A88769042F5E3015003D3AAB /* TelegramLoginWidget in Frameworks */,
+				A89BA10A2F5E3E71004ED968 /* TelegramLoginWidget in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A88AA35E2F5E26AE008C6A03 = {
+		A89BA0E12F5E3E2A004ED968 = {
 			isa = PBXGroup;
 			children = (
-				A88AA3692F5E26AE008C6A03 /* TelegramLoginWidgetSample */,
-				A88AA3682F5E26AE008C6A03 /* Products */,
+				A89BA0EC2F5E3E2A004ED968 /* Sample */,
+				A89BA0EB2F5E3E2A004ED968 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A88AA3682F5E26AE008C6A03 /* Products */ = {
+		A89BA0EB2F5E3E2A004ED968 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A88AA3672F5E26AE008C6A03 /* TelegramLoginWidgetSample.app */,
+				A89BA0EA2F5E3E2A004ED968 /* Sample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,68 +53,68 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A88AA3662F5E26AE008C6A03 /* TelegramLoginWidgetSample */ = {
+		A89BA0E92F5E3E2A004ED968 /* Sample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A88AA3722F5E26AF008C6A03 /* Build configuration list for PBXNativeTarget "TelegramLoginWidgetSample" */;
+			buildConfigurationList = A89BA0F52F5E3E2B004ED968 /* Build configuration list for PBXNativeTarget "Sample" */;
 			buildPhases = (
-				A88AA3632F5E26AE008C6A03 /* Sources */,
-				A88AA3642F5E26AE008C6A03 /* Frameworks */,
-				A88AA3652F5E26AE008C6A03 /* Resources */,
+				A89BA0E62F5E3E2A004ED968 /* Sources */,
+				A89BA0E72F5E3E2A004ED968 /* Frameworks */,
+				A89BA0E82F5E3E2A004ED968 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				A88AA3692F5E26AE008C6A03 /* TelegramLoginWidgetSample */,
+				A89BA0EC2F5E3E2A004ED968 /* Sample */,
 			);
-			name = TelegramLoginWidgetSample;
+			name = Sample;
 			packageProductDependencies = (
-				A88769032F5E3015003D3AAB /* TelegramLoginWidget */,
+				A89BA1092F5E3E71004ED968 /* TelegramLoginWidget */,
 			);
-			productName = TelegramLoginWidgetSample;
-			productReference = A88AA3672F5E26AE008C6A03 /* TelegramLoginWidgetSample.app */;
+			productName = Sample;
+			productReference = A89BA0EA2F5E3E2A004ED968 /* Sample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A88AA35F2F5E26AE008C6A03 /* Project object */ = {
+		A89BA0E22F5E3E2A004ED968 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
-					A88AA3662F5E26AE008C6A03 = {
+					A89BA0E92F5E3E2A004ED968 = {
 						CreatedOnToolsVersion = 26.0;
 					};
 				};
 			};
-			buildConfigurationList = A88AA3622F5E26AE008C6A03 /* Build configuration list for PBXProject "TelegramLoginWidgetSample" */;
+			buildConfigurationList = A89BA0E52F5E3E2A004ED968 /* Build configuration list for PBXProject "Sample" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = A88AA35E2F5E26AE008C6A03;
+			mainGroup = A89BA0E12F5E3E2A004ED968;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				A88769022F5E3015003D3AAB /* XCLocalSwiftPackageReference "../../TelegramLoginWidget" */,
+				A89BA1082F5E3E71004ED968 /* XCLocalSwiftPackageReference "../../TelegramLoginWidget" */,
 			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = A88AA3682F5E26AE008C6A03 /* Products */;
+			productRefGroup = A89BA0EB2F5E3E2A004ED968 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A88AA3662F5E26AE008C6A03 /* TelegramLoginWidgetSample */,
+				A89BA0E92F5E3E2A004ED968 /* Sample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A88AA3652F5E26AE008C6A03 /* Resources */ = {
+		A89BA0E82F5E3E2A004ED968 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -124,7 +124,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A88AA3632F5E26AE008C6A03 /* Sources */ = {
+		A89BA0E62F5E3E2A004ED968 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -134,7 +134,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		A88AA3702F5E26AF008C6A03 /* Debug */ = {
+		A89BA0F32F5E3E2B004ED968 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -198,7 +198,7 @@
 			};
 			name = Debug;
 		};
-		A88AA3712F5E26AF008C6A03 /* Release */ = {
+		A89BA0F42F5E3E2B004ED968 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -255,7 +255,7 @@
 			};
 			name = Release;
 		};
-		A88AA3732F5E26AF008C6A03 /* Debug */ = {
+		A89BA0F62F5E3E2B004ED968 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -275,13 +275,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.anasmusa.TelegramLoginWidgetSample;
+				PRODUCT_BUNDLE_IDENTIFIER = me.anasmusa.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -291,7 +287,7 @@
 			};
 			name = Debug;
 		};
-		A88AA3742F5E26AF008C6A03 /* Release */ = {
+		A89BA0F72F5E3E2B004ED968 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -311,13 +307,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.anasmusa.TelegramLoginWidgetSample;
+				PRODUCT_BUNDLE_IDENTIFIER = me.anasmusa.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -330,20 +322,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A88AA3622F5E26AE008C6A03 /* Build configuration list for PBXProject "TelegramLoginWidgetSample" */ = {
+		A89BA0E52F5E3E2A004ED968 /* Build configuration list for PBXProject "Sample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A88AA3702F5E26AF008C6A03 /* Debug */,
-				A88AA3712F5E26AF008C6A03 /* Release */,
+				A89BA0F32F5E3E2B004ED968 /* Debug */,
+				A89BA0F42F5E3E2B004ED968 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A88AA3722F5E26AF008C6A03 /* Build configuration list for PBXNativeTarget "TelegramLoginWidgetSample" */ = {
+		A89BA0F52F5E3E2B004ED968 /* Build configuration list for PBXNativeTarget "Sample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A88AA3732F5E26AF008C6A03 /* Debug */,
-				A88AA3742F5E26AF008C6A03 /* Release */,
+				A89BA0F62F5E3E2B004ED968 /* Debug */,
+				A89BA0F72F5E3E2B004ED968 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -351,18 +343,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		A88769022F5E3015003D3AAB /* XCLocalSwiftPackageReference "../../TelegramLoginWidget" */ = {
+		A89BA1082F5E3E71004ED968 /* XCLocalSwiftPackageReference "../../TelegramLoginWidget" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../TelegramLoginWidget;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A88769032F5E3015003D3AAB /* TelegramLoginWidget */ = {
+		A89BA1092F5E3E71004ED968 /* TelegramLoginWidget */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TelegramLoginWidget;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = A88AA35F2F5E26AE008C6A03 /* Project object */;
+	rootObject = A89BA0E22F5E3E2A004ED968 /* Project object */;
 }

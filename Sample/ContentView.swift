@@ -7,7 +7,7 @@ struct ContentView: View {
     @State private var toastMessage: String? = nil
 
     private var backgroundColor: Color {
-        isDarkMode ? Color(red: 0.055, green: 0.071, blue: 0.122) : .white // 0xFF0E121F
+        isDarkMode ? Color(red: 0.055, green: 0.071, blue: 0.122) : .white  // 0xFF0E121F
     }
 
     var body: some View {

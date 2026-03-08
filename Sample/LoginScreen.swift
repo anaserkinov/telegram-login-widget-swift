@@ -6,34 +6,34 @@
 //
 
 import SwiftUI
-import TelegramLoginWidget
 import TelegramLoginData
+import TelegramLoginWidget
 
 #Preview {
     LoginScreen { _ in
-        
+
     }
 }
 
 struct LoginScreen: View {
-    
+
     @State
     var buttonState = TelegramLoginState(
-        botId: 8320475019,
+        botId: 8_320_475_019,
         botUsername: "login_widget_telegram_bot",
         websiteUrl: "https://anasmusa.me"
     )
-    
+
     @State private var showBottomSheet = false
 
     var onResult: (TelegramLoginResult) -> Void
-    
+
     var body: some View {
         VStack {
             TelegramLoginButton(state: buttonState, onResult: onResult)
                 .tint(TelegramDefaults.primaryColor)
                 .buttonStyle(.glassProminent)
-            
+
             TelegramLoginButton(
                 state: buttonState,
                 onResult: onResult,
@@ -41,8 +41,8 @@ struct LoginScreen: View {
             )
             .tint(.white)
             .buttonStyle(.glassProminent)
-            
-            TelegramLoginButton(state: buttonState, onResult: onResult){ state, _ in
+
+            TelegramLoginButton(state: buttonState, onResult: onResult) { state, _ in
                 HStack {
                     TelegramButtonIcon()
                     Spacer()
@@ -53,10 +53,10 @@ struct LoginScreen: View {
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 12)
             }
-                .tint(TelegramDefaults.primaryColor)
-                .buttonStyle(.glassProminent)
-            
-            TelegramLoginButton(state: buttonState, onResult: onResult){ state, _ in
+            .tint(TelegramDefaults.primaryColor)
+            .buttonStyle(.glassProminent)
+
+            TelegramLoginButton(state: buttonState, onResult: onResult) { state, _ in
                 HStack(spacing: 0) {
                     TelegramButtonIcon()
                     Spacer()
@@ -67,11 +67,11 @@ struct LoginScreen: View {
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 12)
+                .padding(.horizontal, 12)
             }
-                .tint(TelegramDefaults.primaryColor)
-                .buttonStyle(.glassProminent)
-            
+            .tint(TelegramDefaults.primaryColor)
+            .buttonStyle(.glassProminent)
+
             Button {
                 showBottomSheet = true
             } label: {
