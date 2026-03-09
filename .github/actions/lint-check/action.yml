@@ -1,0 +1,9 @@
+name: 'Swift format'
+description: 'Run swift format checks'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run swift format
+      shell: bash
+      run: swift-format lint Sources/ TelegramLoginWidgetSample/ Package.swift  --recursive  -s --configuration .swift-format

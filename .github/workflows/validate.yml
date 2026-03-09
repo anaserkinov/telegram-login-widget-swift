@@ -1,0 +1,17 @@
+name: Linting
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+
+jobs:
+  lint:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: Run Lint Checks
+        uses: ./.github/actions/lint-check
