@@ -36,13 +36,26 @@ struct LoginScreen: View {
 
             TelegramLoginButton(
                 state: buttonState,
-                onResult: onResult,
-                contentColor: TelegramDefaults.primaryColor
-            )
+                onResult: onResult
+            ) { state in
+                HStack {
+                    TelegramButtonIcon()
+                        .foregroundStyle(TelegramDefaults.primaryColor)
+                    TelegramButtonText(state: state)
+                        .foregroundStyle(.black)
+                    TelegramButtontUserPhotoBox(
+                        state: state,
+                        progress: {
+                            TelegramButtonCircularProgress(tint: .black)
+                        })
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 12)
+            }
             .tint(.white)
             .buttonStyle(.glassProminent)
 
-            TelegramLoginButton(state: buttonState, onResult: onResult) { state, _ in
+            TelegramLoginButton(state: buttonState, onResult: onResult) { state in
                 HStack {
                     TelegramButtonIcon()
                     Spacer()
@@ -56,7 +69,7 @@ struct LoginScreen: View {
             .tint(TelegramDefaults.primaryColor)
             .buttonStyle(.glassProminent)
 
-            TelegramLoginButton(state: buttonState, onResult: onResult) { state, _ in
+            TelegramLoginButton(state: buttonState, onResult: onResult) { state in
                 HStack(spacing: 0) {
                     TelegramButtonIcon()
                     Spacer()

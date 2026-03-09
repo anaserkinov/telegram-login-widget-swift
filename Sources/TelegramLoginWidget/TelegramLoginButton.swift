@@ -1,5 +1,5 @@
 //
-//  TelegramDefaults.swift
+//  TelegramLoginButton.swift
 //  TelegramLoginWidget
 //
 //  Created by Anas Erkinjonov on 03/03/26.
@@ -92,21 +92,21 @@ public struct TelegramButtonText: View {
 /// Small circular indeterminate progress indicator
 public struct TelegramButtonCircularProgress: View {
     var size: CGFloat
-    var color: Color
+    var tint: Color
 
     public init(
         size: CGFloat = TelegramDefaults.userPhotoSize,
-        color: Color = Color.white
+        tint: Color = Color.white
     ) {
         self.size = size
-        self.color = color
+        self.tint = tint
     }
 
     public var body: some View {
         ProgressView()
             .progressViewStyle(.circular)
-            .tint(color)
             .frame(width: size, height: size)
+            .tint(tint)
     }
 }
 
@@ -147,9 +147,8 @@ public struct TelegramButtonUserPhoto: View {
 public struct TelegramButtontUserPhotoBox<Progress: View, Photo: View>: View {
     var state: TelegramLoginState
     var padding: EdgeInsets
-    var contentColor: Color
     var preservesSpace: Bool
-    @ViewBuilder var progress: (Color) -> Progress
+    @ViewBuilder var progress: () -> Progress
     @ViewBuilder var userPhoto: (TelegramLoginState) -> Photo
 
     public init(
@@ -160,10 +159,9 @@ public struct TelegramButtontUserPhotoBox<Progress: View, Photo: View>: View {
             bottom: 0,
             trailing: 0
         ),
-        contentColor: Color = .white,
         preservesSpace: Bool = true,
-        progress: @escaping (Color) -> Progress = { contentColor in
-            TelegramButtonCircularProgress(color: contentColor)
+        progress: @escaping () -> Progress = {
+            TelegramButtonCircularProgress()
         },
         userPhoto: @escaping (TelegramLoginState) -> Photo = { state in
             TelegramButtonUserPhoto(state: state)
@@ -171,7 +169,6 @@ public struct TelegramButtontUserPhotoBox<Progress: View, Photo: View>: View {
     ) {
         self.state = state
         self.padding = padding
-        self.contentColor = contentColor
         self.preservesSpace = preservesSpace
         self.progress = progress
         self.userPhoto = userPhoto
@@ -180,7 +177,7 @@ public struct TelegramButtontUserPhotoBox<Progress: View, Photo: View>: View {
     public var body: some View {
         Group {
             if state.isLoading {
-                progress(contentColor)
+                progress()
                     .transition(.scale.combined(with: .opacity))
             }
 
@@ -206,8 +203,7 @@ public struct TelegramLoginButton<Content: View>: View {
 
     private var state: TelegramLoginState
     private let onResult: (TelegramLoginResult) -> Void
-    private let contentColor: Color
-    private let content: (TelegramLoginState, _ contentColor: Color) -> Content
+    private let content: (TelegramLoginState) -> Content
 
     @State private var showBottomSheet = false
     @State private var isUserDismiss = true
@@ -215,25 +211,18 @@ public struct TelegramLoginButton<Content: View>: View {
     public init(
         state: TelegramLoginState,
         onResult: @escaping (TelegramLoginResult) -> Void,
-        contentColor: Color = .white,
         @ViewBuilder content:
-            @escaping (TelegramLoginState, _ contentColor: Color) -> Content = {
-                state,
-                contentColor in
+            @escaping (TelegramLoginState) -> Content = { state in
                 HStack(spacing: 0) {
                     TelegramButtonIcon()
                     TelegramButtonText(state: state)
-                    TelegramButtontUserPhotoBox(
-                        state: state,
-                        contentColor: contentColor
-                    )
+                    TelegramButtontUserPhotoBox(state: state)
                 }
                 .frame(maxWidth: .infinity)
             }
     ) {
         self.state = state
         self.onResult = onResult
-        self.contentColor = contentColor
         self.content = content
     }
 
@@ -241,9 +230,8 @@ public struct TelegramLoginButton<Content: View>: View {
         Button {
             showBottomSheet = true
         } label: {
-            content(state, contentColor)
+            content(state)
         }
-        .foregroundStyle(contentColor)
         .onChange(
             of: showBottomSheet, initial: false,
             { oldValue, newValue in

@@ -1,5 +1,5 @@
 //
-//  TelegramLoginConfig.swift
+//  TelegramLoginState.swift
 //  TelegramLoginWidget
 //
 //  Created by Anas Erkinjonov on 03/03/26.
@@ -24,7 +24,7 @@ public final class TelegramLoginState {
 
     public let config: TelegramLoginConfig
 
-    private(set) var isLoading: Bool = true
+    private(set) var isLoading: Bool = false
     var buttonContent: ButtonContent = ButtonContent()
 
     private var lastUsedCookies: String? = nil
@@ -68,7 +68,6 @@ public final class TelegramLoginState {
     public func logout() {
         Task {
             try await TelegramLoginManager.shared.logout()
-            isLoading = true
             load()
         }
     }

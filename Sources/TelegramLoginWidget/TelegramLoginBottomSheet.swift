@@ -43,41 +43,6 @@ public struct TelegramLoginBottomSheet<Progress: View>: View {
     }
 }
 
-// MARK: - View modifier helper
-// Mirrors the pattern: show the bottom sheet from a parent view
-
-struct TelegramLoginBottomSheetModifier: ViewModifier {
-    @Binding var isPresented: Bool
-    let config: TelegramLoginConfig
-    let onResult: (TelegramLoginResult) -> Void
-
-    func body(content: Content) -> some View {
-        content
-            .sheet(isPresented: $isPresented) {
-                TelegramLoginBottomSheet(config: config) { result in
-                    isPresented = false
-                    onResult(result)
-                }
-            }
-    }
-}
-
-extension View {
-    func telegramLoginBottomSheet(
-        isPresented: Binding<Bool>,
-        config: TelegramLoginConfig,
-        onResult: @escaping (TelegramLoginResult) -> Void
-    ) -> some View {
-        modifier(
-            TelegramLoginBottomSheetModifier(
-                isPresented: isPresented,
-                config: config,
-                onResult: onResult
-            )
-        )
-    }
-}
-
 // MARK: - Preview
 
 #Preview {
