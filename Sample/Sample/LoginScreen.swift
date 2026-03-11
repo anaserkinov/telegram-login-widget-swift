@@ -70,7 +70,7 @@ struct LoginScreen: View {
             .buttonStyle(.glassProminent)
 
             TelegramLoginButton(state: buttonState, onResult: onResult) { state in
-                HStack(spacing: 0) {
+                HStack {
                     TelegramButtonIcon()
                     Spacer()
                     TelegramButtonText(state: state)

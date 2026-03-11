@@ -14,7 +14,6 @@ public enum TelegramDefaults {
     public static let primaryColor = Color(red: 84.0 / 255, green: 169.0 / 255, blue: 235.0 / 255)  // FF54A9EB
     public static let disabledPrimaryColor = Color(red: 171.0 / 255, green: 218.0 / 255, blue: 1)  // FFABDAFF
     public static let iconSize: CGFloat = 24
-    public static let iconEndPadding: CGFloat = 12
     public static let userPhotoSize: CGFloat = 24
 }
 
@@ -22,43 +21,26 @@ public enum TelegramDefaults {
 
 public struct TelegramButtonIcon: View {
     var size: CGFloat
-    var padding: EdgeInsets
 
     public init(
-        size: CGFloat = TelegramDefaults.iconSize,
-        padding: EdgeInsets = EdgeInsets(
-            top: 0,
-            leading: 0,
-            bottom: 0,
-            trailing: TelegramDefaults.iconEndPadding
-        )
+        size: CGFloat = TelegramDefaults.iconSize
     ) {
         self.size = size
-        self.padding = padding
     }
 
     public var body: some View {
         TelegramIcon()
             .frame(width: size, height: size)
-            .padding(padding)
     }
 }
 
 public struct TelegramButtonCircleIcon: View {
     var size: CGFloat
-    var padding: EdgeInsets
 
     public init(
-        size: CGFloat = TelegramDefaults.iconSize,
-        padding: EdgeInsets = EdgeInsets(
-            top: 0,
-            leading: 0,
-            bottom: 0,
-            trailing: TelegramDefaults.iconEndPadding
-        )
+        size: CGFloat = TelegramDefaults.iconSize
     ) {
         self.size = size
-        self.padding = padding
     }
 
     public var body: some View {
@@ -67,7 +49,6 @@ public struct TelegramButtonCircleIcon: View {
             .frame(width: size, height: size)
             .background(TelegramDefaults.primaryColor)
             .clipShape(Circle())
-            .padding(padding)
     }
 }
 
@@ -146,19 +127,12 @@ public struct TelegramButtonUserPhoto: View {
 /// Box that shows progress while loading, then the user photo
 public struct TelegramButtontUserPhotoBox<Progress: View, Photo: View>: View {
     var state: TelegramLoginState
-    var padding: EdgeInsets
     var preservesSpace: Bool
     @ViewBuilder var progress: () -> Progress
     @ViewBuilder var userPhoto: (TelegramLoginState) -> Photo
 
     public init(
         state: TelegramLoginState,
-        padding: EdgeInsets = EdgeInsets(
-            top: 0,
-            leading: 8,
-            bottom: 0,
-            trailing: 0
-        ),
         preservesSpace: Bool = true,
         progress: @escaping () -> Progress = {
             TelegramButtonCircularProgress()
@@ -168,7 +142,6 @@ public struct TelegramButtontUserPhotoBox<Progress: View, Photo: View>: View {
         }
     ) {
         self.state = state
-        self.padding = padding
         self.preservesSpace = preservesSpace
         self.progress = progress
         self.userPhoto = userPhoto
@@ -191,7 +164,6 @@ public struct TelegramButtontUserPhotoBox<Progress: View, Photo: View>: View {
             }
         }
         .animation(.easeInOut(duration: 0.2), value: state.isLoading)
-        .padding(padding)
     }
 }
 
@@ -213,7 +185,7 @@ public struct TelegramLoginButton<Content: View>: View {
         onResult: @escaping (TelegramLoginResult) -> Void,
         @ViewBuilder content:
             @escaping (TelegramLoginState) -> Content = { state in
-                HStack(spacing: 0) {
+                HStack {
                     TelegramButtonIcon()
                     TelegramButtonText(state: state)
                     TelegramButtontUserPhotoBox(state: state)
@@ -238,6 +210,7 @@ public struct TelegramLoginButton<Content: View>: View {
                 if newValue {
                     isUserDismiss = true
                 } else if isUserDismiss {
+                    state.reload()
                     onResult(TelegramLoginResultCancelled())
                 }
             }
