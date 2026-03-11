@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-03-12
+### Changed
+- Updated bundled `TelegramLoginData.xcframework` to v1.0.0-RC3
+
 ## [1.0.0] - 2026-03-09
 ### Added
 - Initial release
