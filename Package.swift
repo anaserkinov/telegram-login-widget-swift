@@ -18,8 +18,8 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .binaryTarget(
             name: "TelegramLoginData",
-            url: "https://github.com/anaserkinov/telegram-login-widget/releases/download/v1.0.0-RC/TelegramLoginData.xcframework.zip",
-            checksum: "89ce1c25922b4f76af15f8f8ab42f83fc6db4ef029576cc81a124f132af91def"
+            url: "https://github.com/anaserkinov/telegram-login-widget/releases/download/v1.0.0-RC3/TelegramLoginData.xcframework.zip",
+            checksum: "1b84112adef41950c8677e0e69e5acce676c6617379a4d6e9bf21a604a29bb93"
         ),
         .target(
             name: "TelegramLoginWidget",

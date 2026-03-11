@@ -3,7 +3,6 @@ name: Publish
 on:
   push:
     tags:
-      - 'v*'
 
 jobs:
   publish:
@@ -16,6 +15,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
+
+      - name: Run Lint Checks
+        uses: ./.github/actions/lint-check
 
       - name: Create GitHub Release
         env:
