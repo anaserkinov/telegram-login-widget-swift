@@ -28,7 +28,7 @@ Or add it directly to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/anaserkinov/telegram-login-widget-swift", from: "1.0.0")
+    .package(url: "https://github.com/anaserkinov/telegram-login-widget-swift", from: "latest_version")
 ]
 ```
 
@@ -136,7 +136,7 @@ TelegramLoginButton(
 ```swift
 // Centered label with user photo balanced symmetrically
 TelegramLoginButton(state: state, onResult: onResult) { state in
-    HStack(spacing: 0) {
+    HStack {
         TelegramButtonIcon()
         Spacer()
         TelegramButtonText(state: state)
