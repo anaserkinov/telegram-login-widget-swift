@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-import TelegramLoginData
-import TelegramLoginWidget
+import TelegramLogin
 
 #Preview {
     LoginScreen { _ in
@@ -18,36 +17,33 @@ import TelegramLoginWidget
 struct LoginScreen: View {
 
     @State
-    var buttonState = TelegramLoginState(
-        botId: 8_320_475_019,
-        botUsername: "login_widget_telegram_bot",
-        websiteUrl: "https://anasmusa.me"
+    var telegramConfig = TelegramLoginConfig(
+        clientId: 8_266_153_417,
+        redirectURI: "https://anasmusa.me"
     )
 
-    @State private var showBottomSheet = false
+    @State private var showDialog = false
 
     var onResult: (TelegramLoginResult) -> Void
 
     var body: some View {
         VStack {
-            TelegramLoginButton(state: buttonState, onResult: onResult)
-                .tint(TelegramDefaults.primaryColor)
-                .buttonStyle(.glassProminent)
+            TelegramLoginButton(config: telegramConfig, onResult: onResult) {
+                HStack {
+                    TelegramButtonIcon()
+                    Text("Sign in with Telegram")
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .tint(TelegramDefaults.primaryColor)
+            .buttonStyle(.glassProminent)
 
-            TelegramLoginButton(
-                state: buttonState,
-                onResult: onResult
-            ) { state in
+            TelegramLoginButton(config: telegramConfig, onResult: onResult) {
                 HStack {
                     TelegramButtonIcon()
                         .foregroundStyle(TelegramDefaults.primaryColor)
-                    TelegramButtonText(state: state)
+                    Text("Sign in with Telegram")
                         .foregroundStyle(.black)
-                    TelegramButtontUserPhotoBox(
-                        state: state,
-                        progress: {
-                            TelegramButtonCircularProgress(tint: .black)
-                        })
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 12)
@@ -55,28 +51,11 @@ struct LoginScreen: View {
             .tint(.white)
             .buttonStyle(.glassProminent)
 
-            TelegramLoginButton(state: buttonState, onResult: onResult) { state in
+            TelegramLoginButton(config: telegramConfig, onResult: onResult) {
                 HStack {
                     TelegramButtonIcon()
                     Spacer()
-                    TelegramButtonText(state: state)
-                    Spacer()
-                    TelegramButtontUserPhotoBox(state: state)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 12)
-            }
-            .tint(TelegramDefaults.primaryColor)
-            .buttonStyle(.glassProminent)
-
-            TelegramLoginButton(state: buttonState, onResult: onResult) { state in
-                HStack {
-                    TelegramButtonIcon()
-                    Spacer()
-                    TelegramButtonText(state: state)
-                    TelegramButtontUserPhotoBox(state: state, preservesSpace: false)
-                    Spacer()
-                        .frame(width: TelegramDefaults.userPhotoSize)
+                    Text("Sign in with Telegram")
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
@@ -86,7 +65,7 @@ struct LoginScreen: View {
             .buttonStyle(.glassProminent)
 
             Button {
-                showBottomSheet = true
+                showDialog = true
             } label: {
                 ZStack {
                     TelegramIcon()
@@ -98,13 +77,7 @@ struct LoginScreen: View {
             .buttonStyle(.glassProminent)
             .buttonBorderShape(.circle)
             .tint(TelegramDefaults.primaryColor)
-        }
-        .sheet(isPresented: $showBottomSheet) {
-            TelegramLoginBottomSheet(config: buttonState.config) { result in
-                showBottomSheet = false
-                buttonState.reload()
-                onResult(result)
-            }
+            .telegramLoginDialog(isPresented: $showDialog, config: telegramConfig, onResult: onResult)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()

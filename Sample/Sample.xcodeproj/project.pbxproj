@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A89BA10A2F5E3E71004ED968 /* TelegramLoginWidget in Frameworks */ = {isa = PBXBuildFile; productRef = A89BA1092F5E3E71004ED968 /* TelegramLoginWidget */; };
+		A869DFD42F74D69B00723D92 /* TelegramLogin in Frameworks */ = {isa = PBXBuildFile; productRef = A869DFD32F74D69B00723D92 /* TelegramLogin */; };
+		A869DFD62F74D69B00723D92 /* TelegramLoginWidget in Frameworks */ = {isa = PBXBuildFile; productRef = A869DFD52F74D69B00723D92 /* TelegramLoginWidget */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A89BA10A2F5E3E71004ED968 /* TelegramLoginWidget in Frameworks */,
+				A869DFD42F74D69B00723D92 /* TelegramLogin in Frameworks */,
+				A869DFD62F74D69B00723D92 /* TelegramLoginWidget in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +72,8 @@
 			);
 			name = Sample;
 			packageProductDependencies = (
-				A89BA1092F5E3E71004ED968 /* TelegramLoginWidget */,
+				A869DFD32F74D69B00723D92 /* TelegramLogin */,
+				A869DFD52F74D69B00723D92 /* TelegramLoginWidget */,
 			);
 			productName = Sample;
 			productReference = A89BA0EA2F5E3E2A004ED968 /* Sample.app */;
@@ -101,7 +104,7 @@
 			mainGroup = A89BA0E12F5E3E2A004ED968;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				A89BA1082F5E3E71004ED968 /* XCLocalSwiftPackageReference "../../TelegramLoginWidget" */,
+				A869DFD22F74D69B00723D92 /* XCLocalSwiftPackageReference "../../TelegramLoginWidget" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A89BA0EB2F5E3E2A004ED968 /* Products */;
@@ -343,14 +346,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		A89BA1082F5E3E71004ED968 /* XCLocalSwiftPackageReference "../../TelegramLoginWidget" */ = {
+		A869DFD22F74D69B00723D92 /* XCLocalSwiftPackageReference "../../TelegramLoginWidget" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../TelegramLoginWidget;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A89BA1092F5E3E71004ED968 /* TelegramLoginWidget */ = {
+		A869DFD32F74D69B00723D92 /* TelegramLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TelegramLogin;
+		};
+		A869DFD52F74D69B00723D92 /* TelegramLoginWidget */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TelegramLoginWidget;
 		};

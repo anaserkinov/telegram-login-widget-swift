@@ -9,7 +9,7 @@ import SwiftUI
 import TelegramLoginData
 
 struct MainScreen: View {
-    let user: TelegramLoginResultSuccess
+    let user: User
     let backToLoginScreen: () -> Void
     let onLogout: () -> Void
 
@@ -29,12 +29,17 @@ struct MainScreen: View {
 
             Spacer().frame(height: 16)
 
-            Text([user.firstName, user.lastName].compactMap { $0 }.joined(separator: " "))
+            Text(user.fullName)
                 .fontWeight(.bold)
                 .font(.system(size: 24))
 
             if let username = user.username {
                 Text(username)
+                    .foregroundColor(.secondary)
+            }
+
+            if let phoneNumber = user.phoneNumber {
+                Text(phoneNumber)
                     .foregroundColor(.secondary)
             }
 
@@ -50,14 +55,16 @@ struct MainScreen: View {
             Spacer()
                 .frame(height: 16)
 
-            Button(action: onLogout) {
-                Text("Log out")
-                    .frame(maxWidth: .infinity)
+            if user.loggedInWithWidget {
+                Button(action: onLogout) {
+                    Text("Log out")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
+                .padding(.horizontal)
+                .padding(.bottom, 16)
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.red)
-            .padding(.horizontal)
-            .padding(.bottom, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -65,14 +72,12 @@ struct MainScreen: View {
 
 #Preview {
     MainScreen(
-        user: TelegramLoginResultSuccess(
-            id: 123,
-            firstName: "John",
-            lastName: "Doe",
-            username: "@johndoe",
+        user: User(
             photoUrl: nil,
-            authDate: 0,
-            hash: ""
+            fullName: "John",
+            username: "@johndoe",
+            phoneNumber: "35463574656",
+            loggedInWithWidget: true
         ),
         backToLoginScreen: {},
         onLogout: {}

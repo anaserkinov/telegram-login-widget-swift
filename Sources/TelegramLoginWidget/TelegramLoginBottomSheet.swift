@@ -36,7 +36,7 @@ public struct TelegramLoginBottomSheet<Progress: View>: View {
             onResult: onResult,
             pageLoader: pageLoader,
         )
-        .padding(.top, 48)
+        .padding(.top, 96)
         .background(.white)
         .presentationDetents([.fraction(0.75)])
         .presentationDragIndicator(.visible)
