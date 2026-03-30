@@ -16,8 +16,7 @@ import TelegramLogin
 
 struct LoginScreen: View {
 
-    @State
-    var telegramConfig = TelegramLoginConfig(
+    private let telegramConfig = TelegramLoginConfig(
         clientId: 8_266_153_417,
         redirectURI: "https://anasmusa.me"
     )

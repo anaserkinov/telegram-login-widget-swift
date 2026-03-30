@@ -63,7 +63,24 @@ public struct TelegramLoginView<Progress: View>: View {
 
             HStack {
                 if canGoBack {
-                    backButton
+                    let action = {
+                        holder.webView.goBack()
+                        return
+                    }
+                    let label = Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .semibold))
+
+                    if #available(iOS 26.0, *) {
+                        Button(action: action) { label }
+                            .buttonStyle(.glass)
+                            .buttonBorderShape(.circle)
+                            .padding(.all, 14)
+                    } else {
+                        Button(action: action) { label }
+                            .buttonStyle(.borderedProminent)
+                            .buttonBorderShape(.circle)
+                            .padding(.all, 14)
+                    }
                 }
                 Spacer()
             }
@@ -73,28 +90,6 @@ public struct TelegramLoginView<Progress: View>: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-
-    @ViewBuilder
-    private var backButton: some View {
-        let action = {
-            holder.webView.goBack()
-            return
-        }
-        let label = Image(systemName: "chevron.left")
-            .font(.system(size: 18, weight: .semibold))
-
-        if #available(iOS 26.0, *) {
-            Button(action: action) { label }
-                .buttonStyle(.glass)
-                .buttonBorderShape(.circle)
-                .padding(.all, 14)
-        } else {
-            Button(action: action) { label }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.circle)
-                .padding(.all, 14)
-        }
     }
 }
 
@@ -158,12 +153,12 @@ final class TelegramWebViewCoordinator: NSObject, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         onLoadingChanged(true)
-        onCanGoBackChanged(webView.canGoBack)
+        updateCanGoBack(webView: webView)
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         onLoadingChanged(false)
-        onCanGoBackChanged(webView.canGoBack)
+        updateCanGoBack(webView: webView)
     }
 
     func webView(
@@ -172,15 +167,7 @@ final class TelegramWebViewCoordinator: NSObject, WKNavigationDelegate {
         withError error: Error
     ) {
         onLoadingChanged(false)
-        onCanGoBackChanged(webView.canGoBack)
-    }
-
-    func webView(
-        _ webView: WKWebView,
-        didFailProvisionalNavigation navigation: WKNavigation!,
-        withError error: Error
-    ) {
-        onCanGoBackChanged(webView.canGoBack)
+        updateCanGoBack(webView: webView)
     }
 
     func webView(
@@ -224,6 +211,10 @@ final class TelegramWebViewCoordinator: NSObject, WKNavigationDelegate {
         }
 
         decisionHandler(.allow)
+    }
+
+    private func updateCanGoBack(webView: WKWebView) {
+        onCanGoBackChanged(webView.canGoBack)
     }
 
     // MARK: - JWT Parsing

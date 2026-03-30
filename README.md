@@ -1,8 +1,17 @@
 # Telegram Login Widget
 
-A SwiftUI library that brings [Telegram Login Widget](https://core.telegram.org/widgets/login) to iOS. It provides ready-to-use, fully customizable login buttons backed by Telegram's official OAuth flow.
+A SwiftUI library that brings Telegram authentication to iOS. It supports two official Telegram login methods — pick the one that fits your use case.
 
-<img src="/assets/images/buttons_light.webp"  alt="Buttons"/>
+---
+
+## Login Methods
+
+| Method | Product |
+|--------|---------|
+| [Telegram Login / OpenID Connect](#telegram-login--openid-connect) | `TelegramLogin` |
+| [Telegram Login Widget (Legacy)](#telegram-login-widget-legacy) | `TelegramLoginWidget` |
+
+---
 
 ## Platforms
 
@@ -16,8 +25,6 @@ Looking for the Android / Kotlin Multiplatform version? Check out the [Compose M
 
 ## Installation
 
-### Swift Package Manager
-
 In Xcode, go to **File → Add Package Dependencies** and enter the repository URL:
 
 ```
@@ -28,19 +35,200 @@ Or add it directly to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/anaserkinov/telegram-login-widget-swift", from: "latest_version")
+    .package(url: "https://github.com/anaserkinov/telegram-login-widget-swift", from: "<latest_version>")
 ]
 ```
 
-### About TelegramLoginData
+Then add the specific product(s) you need to your target:
 
-This package depends on `TelegramLoginData`, an XCFramework bundled automatically via SPM. It is generated from the Kotlin shared module in the [Compose Multiplatform library](https://github.com/anaserkinov/telegram-login-widget) and contains the networking, caching, and login logic shared between iOS and Android.
+```swift
+.product(name: "TelegramLogin", package: "telegram-login-widget-swift"),
+// and/or
+.product(name: "TelegramLoginWidget", package: "telegram-login-widget-swift"),
+```
 
 ---
 
-## Setup
+## Telegram Login / OpenID Connect
 
-### 1. Create a Telegram Bot
+The modern Telegram login flow ([Login via Telegram](https://core.telegram.org/bots/telegram-login)). It presents a Telegram-hosted dialog where the user confirms login with a single tap, then hands back an ID token and profile data to your app.
+
+<p align="center">
+  <img src="/assets/images/sample.gif" alt="Telegram Login demo" width="512"/>
+</p>
+
+### Setup
+
+Follow Telegram's official guide to set up your bot and obtain a `client_id`: [Setting up a bot](https://core.telegram.org/bots/telegram-login#setting-up-a-bot).
+
+### Usage
+
+#### Basic Button
+
+```swift
+import TelegramLogin
+
+struct LoginScreen: View {
+    let config = TelegramLoginConfig(
+        clientId: 123456789,
+        redirectURI: "https://yourapp.com/callback"
+    )
+
+    var body: some View {
+        TelegramLoginButton(config: config, onResult: { result in
+            // handle result
+        }) {
+            HStack {
+                TelegramButtonIcon()
+                Text("Sign in with Telegram")
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .tint(TelegramDefaults.primaryColor)
+        .buttonStyle(.glassProminent)
+    }
+}
+```
+
+Tapping the button presents a `TelegramLoginDialog` with the Telegram OAuth WebView. Once the user authenticates, `onResult` is called with either `.success` or `.cancelled`.
+
+---
+
+#### Handling the Result
+
+```swift
+TelegramLoginButton(config: config, onResult: { result in
+    switch result {
+    case .success(let data):
+        print("Logged in as \(data.user.name), id: \(data.user.id)")
+        // data.idToken          — raw JWT for server-side validation
+        // data.user.id, data.user.name, data.user.preferredUsername,
+        // data.user.picture, data.user.phoneNumber, data.user.nonce,
+        // data.user.iss, data.user.aud, data.user.iat, data.user.exp
+    case .cancelled:
+        print("Login cancelled")
+    }
+}) {
+    // button content
+}
+```
+
+---
+
+#### Using TelegramLoginDialog Directly
+
+You can trigger the login flow from any custom UI element using the `.telegramLoginDialog` modifier:
+
+```swift
+@State private var showDialog = false
+
+Button {
+    showDialog = true
+} label: {
+    TelegramButtonIcon()
+        .frame(width: 48, height: 48)
+}
+.buttonStyle(.glassProminent)
+.buttonBorderShape(.circle)
+.tint(TelegramDefaults.primaryColor)
+.telegramLoginDialog(isPresented: $showDialog, config: config) { result in
+    showDialog = false
+    // handle result
+}
+```
+
+Or use `TelegramLoginDialog` as a view directly:
+
+```swift
+if showDialog {
+    TelegramLoginDialog(config: config) { result in
+        showDialog = false
+        // handle result
+    }
+}
+```
+
+---
+
+#### Embedding the WebView Directly
+
+If you need the OAuth WebView without any button or dialog wrapper, use `TelegramLoginView`:
+
+```swift
+TelegramLoginView(
+    config: TelegramLoginConfig(
+        clientId: 123456789,
+        redirectURI: "https://yourapp.com/callback"
+    ),
+    onResult: { result in
+        // handle result
+    }
+)
+```
+
+---
+
+### API Reference
+
+#### `TelegramLoginConfig`
+
+```swift
+public struct TelegramLoginConfig {
+    public init(
+        clientId: Int64,
+        redirectURI: String,
+        requestDirectMessages: Bool = true,    // request permission to send direct messages to the user (bot_access scope)scope
+        requestPhoneNumber: Bool = false,      // request access to the user's phone number (phone scope)
+        nonce: String? = nil,                  // optional nonce to protect against ID token replay attacks
+        languageCode: String? = nil
+    )
+}
+```
+
+#### `TelegramLoginResult`
+
+```swift
+public enum TelegramLoginResult {
+    case success(Success)
+    case cancelled
+
+    public struct Success {
+        public let idToken: String          // raw JWT — validate on your server
+        public let user: TelegramUserData
+    }
+}
+
+public struct TelegramUserData {
+    public let id: Int64
+    public let name: String
+    public let preferredUsername: String?
+    public let picture: String?
+    public let phoneNumber: String?
+    public let nonce: String?
+    // JWT standard claims
+    public let iss: String
+    public let aud: String
+    public let sub: String
+    public let iat: Int64
+    public let exp: Int64
+}
+```
+
+---
+
+## Telegram Login Widget (Legacy)
+
+The classic [Telegram Login Widget](https://core.telegram.org/widgets/login) flow. It provides ready-to-use, fully customizable login buttons backed by Telegram's official OAuth flow. Requires a bot and a registered website domain.
+
+<img src="/assets/images/buttons_light.webp" alt="Buttons light" />
+
+### About TelegramLoginData
+
+This module depends on `TelegramLoginData`, an XCFramework bundled automatically via SPM. It is generated from the Kotlin shared module in the [Compose Multiplatform library](https://github.com/anaserkinov/telegram-login-widget) and contains the networking, caching, and login logic shared between iOS and Android.
+
+### Setup
+
+#### 1. Create a Telegram Bot
 
 If you don't have a bot yet, create one via [@BotFather](https://t.me/BotFather) and note the **bot ID** and **bot username**.
 
@@ -50,15 +238,15 @@ To find your bot ID, open the following URL in any browser (replace `YOUR_BOT_TO
 https://api.telegram.org/botYOUR_BOT_TOKEN/getMe
 ```
 
-### 2. Configure the Login Widget in BotFather
+#### 2. Configure the Login Widget in BotFather
 
 Send `/setdomain` to BotFather, select your bot, and enter the domain of the website you'll be authorizing against (e.g. `yourdomain.com`). This is required by Telegram's login widget.
 
 ---
 
-## Usage
+### Usage
 
-### Basic Button
+#### Basic Button
 
 ```swift
 import TelegramLoginWidget
@@ -80,43 +268,38 @@ struct LoginScreen: View {
 }
 ```
 
-Tapping the button presents a sheet with Telegram's OAuth WebView. Once the user authenticates, the closure is called with either a `TelegramLoginResultSuccess` or `TelegramLoginResultCancelled`.
+Tapping the button presents a sheet with Telegram's OAuth WebView. Once the user authenticates, the closure is called with either a `.success` or `.cancelled` result.
 
 ---
 
-### Handling the Result
+#### Handling the Result
 
 ```swift
 import TelegramLoginData
 
 TelegramLoginButton(state: state) { result in
     switch result {
-    case let success as TelegramLoginResultSuccess:
-        print("Logged in as \(success.firstName), id: \(success.id)")
-        // success.id, success.firstName, success.lastName,
-        // success.username, success.photoUrl, success.authDate, success.hash
-    case is TelegramLoginResultCancelled:
+    case let .success(data):
+        print("Logged in as \(data.firstName), id: \(data.id)")
+        // data.id, data.firstName, data.lastName,
+        // data.username, data.photoUrl, data.authDate, data.hash
+    case .cancelled:
         print("Login cancelled")
-    default:
-        break
     }
 }
 ```
 
 ---
 
-### Customizing Button
+#### Customizing the Button
 
 `TelegramLoginButton` accepts a fully custom `content` closure, so you can compose any layout using the provided sub-components or your own views.
 
-<img src="/assets/images/buttons_dark.webp"  alt="Buttons"/>
+<img src="/assets/images/buttons_dark.webp" alt="Buttons dark" />
 
 ```swift
 // Light-themed button with Telegram-colored icon
-TelegramLoginButton(
-    state: buttonState,
-    onResult: onResult
-){ state in
+TelegramLoginButton(state: state, onResult: onResult) { state in
     HStack {
         TelegramButtonIcon()
             .foregroundStyle(TelegramDefaults.primaryColor)
@@ -160,7 +343,7 @@ You can also trigger the login flow from any custom UI element using `TelegramLo
 Button {
     showSheet = true
 } label: {
-    TelegramIcon()
+    TelegramButtonIcon()
         .frame(width: 24, height: 24)
 }
 .sheet(isPresented: $showSheet) {
@@ -190,11 +373,9 @@ TelegramLoginView(
 
 ---
 
-### Logout
+#### Logout
 
 ```swift
-import TelegramLoginData
-
 // If you have a state object
 state.logout()
 
@@ -206,9 +387,9 @@ This clears all Telegram cookies and resets the button to its pre-login appearan
 
 ---
 
-## API Reference
+### API Reference
 
-### `TelegramLoginState`
+#### `TelegramLoginState`
 
 ```swift
 @State var state = TelegramLoginState(
@@ -224,11 +405,11 @@ This clears all Telegram cookies and resets the button to its pre-login appearan
 |--------|------|-------------|
 | `config` | `TelegramLoginConfig` | The configuration used to initialize the widget |
 | `isLoading` | `Bool` | `true` while button content or user photo is being fetched |
-| `buttonContent` | `ButtonContent` | Current text (may be empty before first successful load), first name, and avatar image |
-| `reload()` | `func` | Re-fetches button state |
+| `buttonContent` | `ButtonContent` | Current text, first name, and avatar image |
+| `reload()` | `func` | Re-fetches button state (call after a login result) |
 | `logout()` | `func` | Clears session and resets button |
 
-### `TelegramLoginResultSuccess`
+#### `TelegramLoginResult` (Widget)
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -244,7 +425,7 @@ This clears all Telegram cookies and resets the button to its pre-login appearan
 
 ## Sample
 
-The repository includes a sample Xcode project under the `Sample/` directory demonstrating multiple button styles and the standalone bottom sheet.
+The repository includes a sample Xcode project under the `Sample/` directory demonstrating both login methods with multiple button styles.
 
 ---
 
@@ -253,8 +434,8 @@ The repository includes a sample Xcode project under the `Sample/` directory dem
 | Tool | Minimum Version |
 |------|----------------|
 | iOS  | 17.0 |
-| Swift | 5.9 |
-| Xcode | 15 |
+| Swift | 6.2 |
+| Xcode | 26 |
 
 ---
 
