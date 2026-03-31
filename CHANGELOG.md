@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-03-31
+### Fixed
+- Fixed Telegram login issue caused by incorrect token handling
+
 ## [1.1.0] - 2026-03-30
 ### Added
 - Implement new Telegram login method

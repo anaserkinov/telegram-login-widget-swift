@@ -299,6 +299,6 @@ final class TelegramWebViewCoordinator: NSObject, WKNavigationDelegate {
             nonce: json["nonce"] as? String
         )
 
-        return .success(.init(idToken: authData, user: user))
+        return .success(.init(idToken: idToken, user: user))
     }
 }
